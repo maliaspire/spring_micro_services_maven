@@ -1,0 +1,20 @@
+server:
+  port: ${sms.service.zuul.port}
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+  serviceUrl:
+    defaultZone: ${sms.eureka.defaultZone}
+
+zuul:
+  routes:
+    usersService:
+      path: /users-service/**
+      serviceId: ${sms.service.user.service.name}
+    ordersService:
+      path: /orders-service/**
+      serviceId: ${sms.service.orders.service.name}

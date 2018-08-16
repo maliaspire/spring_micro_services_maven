@@ -1,0 +1,10 @@
+server:
+  port: ${sms.service.user.port}
+
+eureka:
+  instance:
+    hostname: localhost
+
+  client:
+    serviceUrl:
+      defaultZone: ${sms.eureka.defaultZone}
