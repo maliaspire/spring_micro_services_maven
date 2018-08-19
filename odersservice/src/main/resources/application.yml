@@ -8,3 +8,14 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${sms.eureka.defaultZone}
+
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ${sms.kafka.hostname}
+      bindings:
+        sms:
+          destination: main stream
+          contentType: application/json

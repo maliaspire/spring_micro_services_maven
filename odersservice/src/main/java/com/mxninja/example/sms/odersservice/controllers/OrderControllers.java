@@ -2,7 +2,9 @@ package com.mxninja.example.sms.odersservice.controllers;
 
 import com.mxninja.example.sms.odersservice.domain.Order;
 import com.mxninja.example.sms.odersservice.models.OrderModel;
+import com.mxninja.example.sms.odersservice.models.StreamMessage;
 import com.mxninja.example.sms.odersservice.repository.OrderDao;
+import com.mxninja.example.sms.odersservice.services.StreamSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,10 +27,12 @@ import java.util.UUID;
 public class OrderControllers {
 
     private final OrderDao ORDER_DAO;
+    private final StreamSenderService STREAM_SENDER_SERVICE;
 
     @Autowired
-    public OrderControllers(OrderDao orderDao) {
+    public OrderControllers(OrderDao orderDao, StreamSenderService streamSenderService) {
         ORDER_DAO = orderDao;
+        STREAM_SENDER_SERVICE = streamSenderService;
     }
 
     @GetMapping("uid/{uid}")
@@ -37,6 +41,14 @@ public class OrderControllers {
         return new ResponseEntity<>(Mono.just(
                 ORDER_DAO.findAllByUserUid(UUID.fromString(uid))
         ), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("message/{message}")
+    public ResponseEntity<Mono<String>> sendMessage(@PathVariable("message") String message){
+        StreamMessage streamMessage = new StreamMessage();
+        streamMessage.setMessage(message);
+        STREAM_SENDER_SERVICE.sendGreeting(streamMessage);
+        return new ResponseEntity<>(Mono.just("Done"), HttpStatus.ACCEPTED);
     }
 
     @PostMapping()
