@@ -12,8 +12,8 @@ import org.springframework.messaging.SubscribableChannel;
  */
 public interface SmsStream {
 
-    String INPUT = "sms";
-    String OUTPUT = "sms";
+    String INPUT = "sms-in";
+    String OUTPUT = "sms-out";
 
     @Input(INPUT)
     SubscribableChannel inboundChannel();

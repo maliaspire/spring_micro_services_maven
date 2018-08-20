@@ -17,21 +17,18 @@ import org.springframework.util.MimeTypeUtils;
  */
 
 @Service
-@Slf4j
 public class StreamSenderService {
 
     private final SmsStream SMS_STREAM;
 
-    @Autowired
     public StreamSenderService(SmsStream smsStream){
         SMS_STREAM = smsStream;
     }
 
-    public void sendGreeting(final StreamMessage greetings) {
-        log.info("Sending greetings {}", greetings);
+    public void sendGreeting(StreamMessage message) {
         MessageChannel messageChannel = SMS_STREAM.outboundChannel();
         messageChannel.send(MessageBuilder
-                .withPayload(greetings)
+                .withPayload(message)
                 .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
                 .build());
     }

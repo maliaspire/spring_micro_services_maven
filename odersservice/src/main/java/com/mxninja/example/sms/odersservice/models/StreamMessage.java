@@ -1,8 +1,6 @@
 package com.mxninja.example.sms.odersservice.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * 8/19/2018
@@ -13,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString
 public class StreamMessage {
 
     private String message;

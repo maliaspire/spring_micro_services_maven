@@ -16,6 +16,9 @@ spring:
         binder:
           brokers: ${sms.kafka.hostname}
       bindings:
-        sms:
-          destination: main stream
+        sms-in:
+          destination: sms-in
+          contentType: application/json
+        sms-out:
+          destination: sms-out
           contentType: application/json
